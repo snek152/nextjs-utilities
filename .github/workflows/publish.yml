@@ -13,6 +13,8 @@ jobs:
         with:
           node-version: 16
       - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7.x
       - run: pnpm install
       - run: pnpm build
 
@@ -26,6 +28,8 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7.x
       - run: pnpm install
       - run: pnpm publish
         env:
