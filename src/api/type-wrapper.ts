@@ -2,9 +2,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 export type ExtendedApiHandler<T, K> = {
   (
-    req:
-      | (Omit<NextApiRequest, "body"> & { body: T })
-      | (Omit<NextApiRequest, "query"> & { query: T }),
+    req: Omit<NextApiRequest, "body" | "query"> & { body: T },
     res: NextApiResponse<K>
   ): void;
 };
@@ -18,7 +16,7 @@ export default function typeWrapper<Req, Res>(
         req,
         req.body
           ? { body: JSON.parse(req.body) as Req }
-          : { query: req.query as Req }
+          : { body: req.query as Req }
       ),
       res
     );
