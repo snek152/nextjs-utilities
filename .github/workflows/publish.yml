@@ -5,6 +5,18 @@ on:
     branches: ["master"]
 
 jobs:
+  bump:
+    steps:
+      uses: "phips28/gh-action-bump-version@master"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        minor-wording: "add,Adds,new,feat"
+        major-wording: "MAJOR,cut-major"
+        patch-wording: "patch,fixes"
+        rc-wording: "RELEASE,alpha"
+        default: patch
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -48,6 +60,8 @@ jobs:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
       - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7.x
       - run: pnpm install
       - run: pnpm build
       - run: pnpm publish

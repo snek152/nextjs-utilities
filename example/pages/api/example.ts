@@ -1,12 +1,21 @@
 import { get, post, withMethod, typeWrapper } from "next-utils";
 
+interface RequestBody {
+  name: string;
+}
+
+interface ResponseBody {
+  id: number;
+  logged_in: boolean;
+}
+
 const getHandler = get((req, res) => {
   res.status(200).json({ name: "Get" });
 });
 
 const postHandler = post(
-  typeWrapper<{ t: string }, { t: number }>((req, res) => {
-    res.status(200).json({ t: 2 });
+  typeWrapper<RequestBody, ResponseBody>((req, res) => {
+    res.status(200).json({ id: 1, logged_in: true });
   })
 );
 

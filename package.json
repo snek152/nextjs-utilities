@@ -1,7 +1,7 @@
 {
-  "name": "next-utils",
+  "name": "nextjs-utilities",
   "version": "1.0.0",
-  "description": "",
+  "description": "A helpful set of utilities built for Next.js projects",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/snek152/next-utils.git"
@@ -10,12 +10,17 @@
     "build": "pnpm build:esm && pnpm build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "start": "watch -p 'src/**/*.ts' -c 'pnpm build'",
-    "prepare": "husky install"
+    "start": "watch -p 'src/**/*.ts' -c 'pnpm build && pnpm make:barrels'",
+    "prepare": "husky install",
+    "make:docs": "typedoc src/index.ts",
+    "make:barrels": "barreler ./src"
   },
   "keywords": [
     "typescript",
-    "nextjs"
+    "nextjs",
+    "next",
+    "react",
+    "api"
   ],
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -26,12 +31,14 @@
     "@types/node": "^18.7.14",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
+    "barreler": "^0.0.5",
+    "husky": "^8.0.0",
     "next": "^12.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "typedoc": "^0.23.13",
     "typescript": "4.7.4",
-    "watch-cli": "^0.2.3",
-    "husky": "^8.0.0"
+    "watch-cli": "^0.2.3"
   },
   "peerDependencies": {
     "next": "^12.2.5",
