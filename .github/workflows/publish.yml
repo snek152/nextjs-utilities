@@ -8,6 +8,7 @@ jobs:
   bump:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: "phips28/gh-action-bump-version@master"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

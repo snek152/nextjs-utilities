@@ -1,4 +1,4 @@
-import { get, post, withMethod, typeWrapper } from "next-utils";
+import { get, post, withMethod, typeWrapper } from "nextjs-utilities";
 
 interface RequestBody {
   name: string;

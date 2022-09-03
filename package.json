@@ -4,7 +4,7 @@
   "description": "A helpful set of utilities built for Next.js projects",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/snek152/next-utils.git"
+    "url": "git+https://github.com/snek152/nextjs-utilities.git"
   },
   "scripts": {
     "build": "pnpm build:esm && pnpm build:cjs",

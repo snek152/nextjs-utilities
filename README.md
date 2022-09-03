@@ -35,11 +35,9 @@ v8.16.0
       - [put](#put)
       - [delete](#delete)
   - [Contributing](#contributing)
-  - [Credits](#credits)
   - [Built With](#built-with)
   - [Versioning](#versioning)
   - [Authors](#authors)
-  - [License](#license)
 
 ## Getting Started
 
@@ -66,7 +64,7 @@ $ yarn add nextjs-utilities
 ### API Route Utilities
 
 ```ts
-import { get, post, withMethod, typeWrapper } from "next-utils";
+import { get, post, withMethod, typeWrapper } from "nextjs-utilities";
 
 interface RequestBody {
   name: string;
@@ -217,8 +215,6 @@ export default withMethod(getHandler, postHandler);
 4. Push to the branch (`git push origin amazing-feature`)
 5. Create a new Pull Request
 
-## Credits
-
 ## Built With
 
 - [Next.js](https://nextjs.org/) - The web framework used
@@ -233,7 +229,3 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 - **Snehil Kakani** - _Creator and Lead Developer_ - [SneK152](https://github.com/snek152)
 
 See also the list of [contributors](https://github.com/snek152/nextjs-utilities/contributors) who participated in this project.
-
-## License
-
-[MIT License](https://andreasonny.mit-license.org/2019) © Andrea SonnY
