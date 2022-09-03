@@ -33,7 +33,7 @@ jobs:
       - run: pnpm build
 
   publish-npm:
-    needs: build
+    needs: [build, bump]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
