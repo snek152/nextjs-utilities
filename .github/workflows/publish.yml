@@ -3,6 +3,8 @@ name: Publish
 on:
   push:
     branches: ["master"]
+  pull_request:
+    branches: ["master"]
 
 jobs:
   bump:
@@ -32,7 +34,7 @@ jobs:
       - run: pnpm install
       - run: pnpm build
 
-  publish-npm:
+  publish:
     needs: [build, bump]
     runs-on: ubuntu-latest
     steps:
@@ -48,24 +50,3 @@ jobs:
       - run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://npm.pkg.github.com/
-      - uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7.x
-      - run: pnpm install
-      - run: pnpm build
-      - run: pnpm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
