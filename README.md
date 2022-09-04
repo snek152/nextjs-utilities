@@ -28,7 +28,7 @@ v8.16.0
   - [Example Usage](#example-usage)
     - [API Route Utilities](#api-route-utilities)
   - [API](#api)
-    - [typeWrapper](#typewrapper)
+    - [wrapper](#wrapper)
     - [withMethod](#withmethod)
       - [get](#get)
       - [post](#post)
@@ -64,7 +64,7 @@ $ yarn add nextjs-utilities
 ### API Route Utilities
 
 ```ts
-import { get, post, withMethod, typeWrapper } from "nextjs-utilities";
+import { catcher, get, post, withMethod, wrapper } from "nextjs-utilities";
 
 interface RequestBody {
   name: string;
@@ -75,12 +75,15 @@ interface ResponseBody {
   logged_in: boolean;
 }
 
-const getHandler = get((req, res) => {
-  res.status(200).json({ name: "Get" });
-});
+const getHandler = get(
+  catcher((req, res) => {
+    throw new Error("This is an error");
+    res.status(200).json({ name: "Get" });
+  })
+);
 
 const postHandler = post(
-  typeWrapper<RequestBody, ResponseBody>((req, res) => {
+  wrapper<RequestBody, ResponseBody>((req, res) => {
     console.log(typeof req.body); // { name: string }
     console.log(typeof res.json); // (body: { id: number; logged_in: boolean; }) => void
   })
@@ -91,17 +94,17 @@ export default withMethod(getHandler, postHandler);
 
 ## API
 
-### typeWrapper
+### wrapper
 
 ```ts
-typeWrapper<Req, Res>(handler: (req: NextAPIRequest & { body: Req }, res: NextAPIResponse<Res>) => void): NextAPIHandler
+wrapper<Req, Res>(handler: (req: NextAPIRequest & { body: Req }, res: NextAPIResponse<Res>) => void): NextApiHandler
 ```
 
-The `typeWrapper` function accepts two generics and preprocesses and types the request body and response json function. The request body is automatically parsed and coerced into the Req type given.
+The `wrapper` function accepts two generics (if coding in Typescript) and preprocesses and types the request body and response json function. The request body is automatically parsed and coerced into the Req type given.
 
 _NOTE_ To account for type inconsistencies, the query object is instead moved to the body property no matter the type of request, so whether using GET or POST/PUT/DELETE, use `req.body` for the information passed to the API route.
 
-Supported options and result fields for the `typeWrapper` function are listed below.
+Supported options and result fields for the `wrapper` function are listed below.
 
 `Req` _(REQUIRED)_
 
@@ -127,7 +130,7 @@ interface ResponseBody {
   logged_in: boolean;
 }
 
-typeWrapper<RequestBody, ResponseBody>((req, res) => {
+wrapper<RequestBody, ResponseBody>((req, res) => {
   console.log(typeof req.body); // { name: string }
   console.log(typeof res.json); // (body: { id: number; logged_in: boolean; }) => void
 });
@@ -136,7 +139,7 @@ typeWrapper<RequestBody, ResponseBody>((req, res) => {
 ### withMethod
 
 ```ts
-withMethod(...handlers: NextAPIHandler[]): NextAPIHandler
+withMethod(...handlers: NextApiHandler[]): NextApiHandler
 ```
 
 The `withMethod` function accepts a list of API route handlers and compiles them into one handler that is intended to be the default export of that route. Meant to be used with the following method handlers.
@@ -205,6 +208,32 @@ const postHandler = post((req, res) => {
 });
 
 export default withMethod(getHandler, postHandler);
+```
+
+### catcher
+
+```ts
+catcher(handler: NextApiHandler, property?: string = "error"): NextApiHandler
+```
+
+The `catcher` takes in a handler and wraps it in a try/catch block that will catch any errors thrown in the handler and return a 500 status code with the error message as the response body. The property name for the error message can be changed by passing in a string as the second argument.
+
+Supported options and result fields for the `catcher` function are listed below.
+
+`handler` _(REQUIRED)_
+
+The handler to wrap in a try/catch block.
+
+`property` _(OPTIONAL)_
+
+The property name for the error message. Defaults to "error".
+
+Example:
+
+```ts
+catcher((req, res) => {
+  throw new Error("Error");
+}); // will return a 500 status code with the response body { error: "Error" }
 ```
 
 ## Contributing

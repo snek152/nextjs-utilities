@@ -1,7 +1,7 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 /**
- * Type for the `typeWrapper` function parameters
+ * Type for the `wrapper` function parameters
  */
 export type ExtendedApiHandler<T, K> = {
   (
@@ -16,7 +16,7 @@ export type ExtendedApiHandler<T, K> = {
  * @param {ExtendedApiHandler} handler - the handler to run, with extended functionality provided by the `ExtendedApiHandler` type
  * @returns the updated handler with the request and response body types
  */
-export default function typeWrapper<Req, Res>(
+export default function wrapper<Req, Res>(
   handler: ExtendedApiHandler<Req, Res>
 ): NextApiHandler {
   return (req: NextApiRequest, res: NextApiResponse<Res>) => {
