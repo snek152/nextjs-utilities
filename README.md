@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/nextjs-utilities.svg)](https://badge.fury.io/js/angular2-expandable-list)
+[![npm version](https://badge.fury.io/js/nextjs-utilities.svg)](https://badge.fury.io/js/nextjs-utlilities.svg)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 # nextjs-utilites
@@ -255,6 +255,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-- **Snehil Kakani** - _Creator and Lead Developer_ - [SneK152](https://github.com/snek152)
+- **Snehil Kakani** - _Creator and Lead Developer_ - [snehilkakani.me](https://snehilkakani.me)
 
 See also the list of [contributors](https://github.com/snek152/nextjs-utilities/contributors) who participated in this project.
